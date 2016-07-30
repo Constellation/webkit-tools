@@ -1,0 +1,30 @@
+{
+    "name": "webkit-tools",
+    "description": "WebKit development tools",
+    "homepage": "http://github.com/Constellation/webkit-tools",
+    "main": "index.js",
+    "bin": {
+    },
+    "version": "1.0.0",
+    "maintainers": [
+        {
+            "name": "Yusuke Suzuki",
+            "email": "utatane.tea@gmail.com",
+            "web": "http://github.com/Constellation"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/Constellation/webkit-tools.git"
+    },
+    "dependencies": {
+        "xcode": "git@github.com:Constellation/node-xcode.git#webkit"
+    },
+    "optionalDependencies": {
+    },
+    "devDependencies": {
+    },
+    "license": "BSD-2-Clause",
+    "scripts": {
+    }
+}
