@@ -22,7 +22,6 @@
   THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// API is a bit wonky right now
 var xcode = require('xcode'),
     fs = require('fs'),
     util = require('util');
@@ -30,20 +29,38 @@ var xcode = require('xcode'),
 var projectPath = 'JavaScriptCore.xcodeproj/project.pbxproj';
 var project = xcode.project(projectPath);
 
-// parsing is async, in a different process
-project.parse(function (err) {
-    var group = project.pbxGroupByName('parser');
-    var groupKey = project.findPBXGroupKey({ path: 'parser' });
-    var target = project.pbxTargetByName('JavaScriptCore');
+function addJSCHeaderFile(project, fileName, groupName)
+{
+    // var group = project.pbxGroupByName('parser');
+    // var groupKey = project.findPBXGroupKey({ path: 'parser' });
+    // var target = project.pbxTargetByName('JavaScriptCore');
+    // var targetKey = project.findTargetKey('JavaScriptCore');
+
+    var groupKey = project.findPBXGroupKey({ path: groupName });
     var targetKey = project.findTargetKey('JavaScriptCore');
 
-    var file = project.addHeaderFile('ModuleScopeData.h', {
+    var file = project.addHeaderFile(fileName, {
         target: targetKey
     }, groupKey);
-    console.log(file);
     file.settings = {
         ATTRIBUTES: [ 'Private' ]
     };
+}
+
+function addJSCSourceFile(project, fileName, groupName)
+{
+    var groupKey = project.findPBXGroupKey({ path: groupName });
+    var targetKey = project.findTargetKey('JavaScriptCore');
+
+    var file = project.addSourceFile(fileName, {
+        target: targetKey
+    }, groupKey);
+}
+
+// Example.
+project.parse(function (err) {
+    addJSCHeaderFile(project, 'ModuleScopeData.h', 'parser');
+    addJSCSourceFile(project, 'ModuleScopeData.cpp', 'parser');
     fs.writeFileSync(projectPath, project.writeSync());
     console.log('new project written');
 });
