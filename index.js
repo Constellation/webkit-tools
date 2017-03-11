@@ -59,8 +59,8 @@ function addJSCSourceFile(project, fileName, groupName)
 
 // Example.
 project.parse(function (err) {
-    addJSCHeaderFile(project, 'ModuleScopeData.h', 'parser');
-    addJSCSourceFile(project, 'ModuleScopeData.cpp', 'parser');
+    addJSCHeaderFile(project, 'MachineContext.h', 'runtime');
+    // addJSCSourceFile(project, 'ModuleScopeData.cpp', 'parser');
     fs.writeFileSync(projectPath, project.writeSync());
     console.log('new project written');
 });
